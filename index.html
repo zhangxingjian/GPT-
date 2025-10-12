@@ -1,0 +1,988 @@
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPT会员代充值中心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        // 配置Tailwind自定义颜色和字体
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4A90E2',
+                        secondary: '#81C3FD',
+                        accent: '#2563EB',
+                        light: '#E6F0FB',
+                        dark: '#1E40AF'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(74, 144, 226, 0.3);
+            }
+            .bg-gradient-blue {
+                background: linear-gradient(135deg, #E6F0FB 0%, #B9D8F7 100%);
+            }
+            .modal-backdrop {
+                backdrop-filter: blur(3px);
+            }
+        }
+    </style>
+</head>
+<body class="bg-light font-sans text-gray-800">
+    <!-- 导航栏 -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-credit-card text-primary text-2xl"></i>
+                <h1 class="text-xl md:text-2xl font-bold text-primary">GPT会员充值中心</h1>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#" class="font-medium text-accent hover:text-dark transition-colors">首页</a>
+                <a href="#plans" class="font-medium text-gray-600 hover:text-accent transition-colors">会员套餐</a>
+                <a href="#process" class="font-medium text-gray-600 hover:text-accent transition-colors">充值流程</a>
+                <a href="#faq" class="font-medium text-gray-600 hover:text-accent transition-colors">常见问题</a>
+                <a href="#contact" class="font-medium text-gray-600 hover:text-accent transition-colors">联系我们</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <a href="#" class="hidden md:block px-4 py-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors login-btn" data-doubao-line="67" data-doubao-column="17">登录</a>
+                <button class="md:hidden text-primary text-xl">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 移动端菜单 -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="p-4 flex justify-end">
+            <button id="close-menu" class="text-gray-500 text-2xl">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <nav class="flex flex-col items-center space-y-6 mt-10 text-lg">
+            <a href="#" class="font-medium text-accent">首页</a>
+            <a href="#plans" class="font-medium text-gray-600 hover:text-accent transition-colors">会员套餐</a>
+            <a href="#process" class="font-medium text-gray-600 hover:text-accent transition-colors">充值流程</a>
+            <a href="#faq" class="font-medium text-gray-600 hover:text-accent transition-colors">常见问题</a>
+            <a href="#contact" class="font-medium text-gray-600 hover:text-accent transition-colors">联系我们</a>
+            <a href="#" class="px-6 py-3 rounded-full bg-primary text-white hover:bg-accent transition-colors login-btn">登录</a>
+        </nav>
+    </div>
+
+    <!-- 英雄区域 -->
+    <section class="bg-gradient-blue py-16 md:py-24">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-gray-800 leading-tight text-shadow mb-4">
+                        便捷会员代充值<br>
+                        <span class="text-accent">享受更多特权</span>
+                    </h1>
+                    <p class="text-gray-600 text-lg mb-8 max-w-lg">
+                        安全快捷的会员代充值服务，支持多种支付方式，实时到账，让您轻松享受会员专属权益。
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#plans" class="px-8 py-3 bg-accent text-white rounded-full text-center font-medium hover:bg-dark transition-all shadow-lg hover:shadow-xl recharge-btn">
+                            立即充值
+                        </a>
+                        <a href="#process" class="px-8 py-3 bg-white/80 text-primary rounded-full text-center font-medium hover:bg-white transition-all shadow-md hover:shadow-lg">
+                            了解流程
+                        </a>
+                    </div>
+                    <div class="mt-8 flex items-center space-x-6">
+                        <div class="flex -space-x-2">
+                            <img src="https://picsum.photos/id/1001/100/100" alt="用户头像" class="w-10 h-10 rounded-full border-2 border-white">
+                            <img src="https://picsum.photos/id/1002/100/100" alt="用户头像" class="w-10 h-10 rounded-full border-2 border-white">
+                            <img src="https://picsum.photos/id/1003/100/100" alt="用户头像" class="w-10 h-10 rounded-full border-2 border-white">
+                            <div class="w-10 h-10 rounded-full bg-primary/20 text-primary border-2 border-white flex items-center justify-center text-sm font-medium">
+                                99+
+                            </div>
+                        </div>
+                        <p class="text-gray-600">已有 thousands+ 用户选择我们</p>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative">
+                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl transform rotate-1 hover:rotate-0 transition-transform duration-500">
+                        <img src="https://picsum.photos/id/180/600/400" alt="会员充值服务展示" class="w-full h-auto">
+                    </div>
+                    <div class="absolute top-10 -right-5 w-32 h-32 bg-primary/20 rounded-full blur-2xl"></div>
+                    <div class="absolute -bottom-5 -left-5 w-40 h-40 bg-accent/20 rounded-full blur-3xl"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特点区域 -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-gray-800 mb-4">为什么选择我们的代充值服务</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">我们提供安全、快捷、高效的会员代充值服务，让您省心省力享受会员特权</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-light rounded-xl p-8 card-hover">
+                    <div class="w-14 h-14 bg-primary/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-lock text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">安全可靠</h3>
+                    <p class="text-gray-600">多重加密技术保障，严格的安全审核流程，确保您的账户和资金安全。</p>
+                </div>
+                
+                <div class="bg-light rounded-xl p-8 card-hover">
+                    <div class="w-14 h-14 bg-primary/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-bolt text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">实时到账</h3>
+                    <p class="text-gray-600">支付完成后立即充值到账，无需等待，让您快速享受会员权益。</p>
+                </div>
+                
+                <div class="bg-light rounded-xl p-8 card-hover">
+                    <div class="w-14 h-14 bg-primary/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-credit-card-alt text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">多种支付</h3>
+                    <p class="text-gray-600">支持微信、支付宝、银行卡等多种支付方式，满足您的不同需求。</p>
+                </div>
+                
+                <div class="bg-light rounded-xl p-8 card-hover">
+                    <div class="w-14 h-14 bg-primary/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-percent text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">价格优惠</h3>
+                    <p class="text-gray-600">相比官方价格更具优势，长期充值享受更多折扣和返利。</p>
+                </div>
+                
+                <div class="bg-light rounded-xl p-8 card-hover">
+                    <div class="w-14 h-14 bg-primary/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-headphones text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">7×24客服</h3>
+                    <p class="text-gray-600">专业客服团队全天候在线，随时为您解决充值过程中遇到的问题。</p>
+                </div>
+                
+                <div class="bg-light rounded-xl p-8 card-hover">
+                    <div class="w-14 h-14 bg-primary/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-shield text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">售后保障</h3>
+                    <p class="text-gray-600">充值未到账全额退款，让您充值无忧，放心购买。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 会员套餐区域 -->
+    <section id="plans" class="py-16 bg-light">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-gray-800 mb-4">会员充值套餐</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">选择适合您的会员套餐，享受更多专属特权和优惠</p>
+                
+          
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 基础套餐 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover border-t-4 border-primary">
+                    <div class="p-8">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">拼车方案</h3>
+                        <p class="text-gray-500 mb-6">适合轻度用户的入门套餐</p>
+                        
+                        <div class="flex items-baseline mb-6">
+                            <span class="text-4xl font-bold text-gray-800">¥30-60</span>
+                            <span class="text-gray-500 ml-2">/月</span>
+                        </div>
+                        
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>codex等高级功能</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>GPT5模型无限制使用</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>思考更加深入</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-times text-gray-300 mt-1 mr-3"></i>
+                                <span>六人拼30</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-times text-gray-300 mt-1 mr-3"></i>
+                                <span>三人拼50</span>
+                            </li>
+                        </ul>
+                        
+                        <a href="#" class="block w-full py-3 text-center rounded-lg border-2 border-primary text-primary font-medium hover:bg-primary hover:text-white transition-colors recharge-btn">
+                            立即充值
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 高级套餐 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-xl card-hover border-t-4 border-accent transform scale-105 relative z-10">
+                    <div class="absolute top-0 right-0 bg-accent text-white text-xs font-bold px-4 py-1 rounded-bl-lg">
+                        最受欢迎
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Plus 独享</h3>
+                        <p class="text-gray-500 mb-6">适合重度用户的全能套餐</p>
+                        
+                        <div class="flex items-baseline mb-6">
+                            <span class="text-4xl font-bold text-gray-800">¥140</span>
+                            <span class="text-gray-500 ml-2">/月</span>
+                        </div>
+                        
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>GPT-5-Thinking每 3 小时最多 80 条消息</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>GPT5模型无限制使用</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>codex等高级功能</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>思考更加深入</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>独享单独的账号</span>
+                            </li>
+                        </ul>
+                        
+                        <a href="#" class="block w-full py-3 text-center rounded-lg bg-accent text-white font-medium hover:bg-dark transition-colors shadow-lg recharge-btn">
+                            立即充值
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 尊享套餐 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover border-t-4 border-dark">
+                    <div class="p-8">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">VPN服务</h3>
+                        <p class="text-gray-500 mb-6">高质量节点</p>
+                        
+                        <div class="flex items-baseline mb-6">
+                            <span class="text-4xl font-bold text-gray-800">¥20</span>
+                            <span class="text-gray-500 ml-2">/月</span>
+                        </div>
+                        
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>一个月200G流量</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>500Mbps网速</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>全球10多个国家节点</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>专属客服优先服务</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>2台设备同时登录</span>
+                            </li>
+                        </ul>
+                        
+                        <a href="#" class="block w-full py-3 text-center rounded-lg border-2 border-dark text-dark font-medium hover:bg-dark hover:text-white transition-colors recharge-btn">
+                            立即充值
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-gray-600 mb-6">需要更多定制化的充值方案？</p>
+                <a href="#contact" class="inline-flex items-center text-accent font-medium hover:underline">
+                    联系我们获取企业方案
+                    <i class="fa fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 支持的平台 -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-[clamp(1.5rem,3vw,2.2rem)] font-bold text-gray-800 mb-4">支持的充值平台</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">我们支持主流平台的会员代充值服务，更多平台持续增加中</p>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 items-center justify-items-center">
+                <div class="p-4 bg-light rounded-xl w-full text-center card-hover">
+                    <i class="fa fa-film text-4xl text-primary mb-2"></i>
+                    <p class="font-medium">Chatgpt</p>
+                </div>
+                <div class="p-4 bg-light rounded-xl w-full text-center card-hover">
+                    <i class="fa fa-music text-4xl text-primary mb-2"></i>
+                    <p class="font-medium">Claude</p>
+                </div>
+                <div class="p-4 bg-light rounded-xl w-full text-center card-hover">
+                    <i class="fa fa-book text-4xl text-primary mb-2"></i>
+                    <p class="font-medium">Gemini</p>
+                </div>
+                <div class="p-4 bg-light rounded-xl w-full text-center card-hover">
+                    <i class="fa fa-gamepad text-4xl text-primary mb-2"></i>
+                    <p class="font-medium">开发中</p>
+                </div>
+                <div class="p-4 bg-light rounded-xl w-full text-center card-hover">
+                    <i class="fa fa-shopping-bag text-4xl text-primary mb-2"></i>
+                    <p class="font-medium">开发中</p>
+                </div>
+                <div class="p-4 bg-light rounded-xl w-full text-center card-hover">
+                    <i class="fa fa-plus-circle text-4xl text-primary mb-2"></i>
+                    <p class="font-medium">开发中</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 充值流程 -->
+    <section id="process" class="py-16 bg-gradient-blue">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-gray-800 mb-4">简单四步，轻松充值</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">我们简化了充值流程，只需几步即可完成会员充值</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                <!-- 连接线 -->
+                <div class="hidden md:block absolute top-1/4 left-0 right-0 h-1 bg-primary/30 -translate-y-1/2 z-0"></div>
+                
+                <div class="relative z-10">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-2xl font-bold mb-6 mx-auto">
+                        1
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+                        <h3 class="text-xl font-bold mb-3 text-gray-800">选择平台</h3>
+                        <p class="text-gray-600">选择您需要充值的会员平台和套餐类型</p>
+                    </div>
+                </div>
+                
+                <div class="relative z-10">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-2xl font-bold mb-6 mx-auto">
+                        2
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+                        <h3 class="text-xl font-bold mb-3 text-gray-800">填写信息</h3>
+                        <p class="text-gray-600">输入您的会员账号信息，确保准确无误</p>
+                    </div>
+                </div>
+                
+                <div class="relative z-10">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-2xl font-bold mb-6 mx-auto">
+                        3
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+                        <h3 class="text-xl font-bold mb-3 text-gray-800">完成支付</h3>
+                        <p class="text-gray-600">选择您方便的支付方式，完成付款流程</p>
+                    </div>
+                </div>
+                
+                <div class="relative z-10">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-2xl font-bold mb-6 mx-auto">
+                        4
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+                        <h3 class="text-xl font-bold mb-3 text-gray-800">到账使用</h3>
+                        <p class="text-gray-600">支付完成后立即到账，享受会员特权</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 支付方式 -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.2rem)] font-bold text-gray-800 mb-4">支持多种支付方式</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">我们支持多种主流支付方式，让您充值更加便捷</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-light rounded-xl p-6 flex flex-col items-center justify-center text-center card-hover">
+                    <i class="fa fa-weixin text-4xl text-green-500 mb-4"></i>
+                    <h3 class="font-bold text-gray-800">微信支付</h3>
+                </div>
+                <div class="bg-light rounded-xl p-6 flex flex-col items-center justify-center text-center card-hover">
+                    <i class="fa fa-credit-card text-4xl text-blue-500 mb-4"></i>
+                    <h3 class="font-bold text-gray-800">支付宝</h3>
+                </div>
+                <div class="bg-light rounded-xl p-6 flex flex-col items-center justify-center text-center card-hover">
+                    <i class="fa fa-university text-4xl text-gray-700 mb-4"></i>
+                    <h3 class="font-bold text-gray-800">银行卡</h3>
+                </div>
+                <div class="bg-light rounded-xl p-6 flex flex-col items-center justify-center text-center card-hover">
+                    <i class="fa fa-money text-4xl text-green-600 mb-4"></i>
+                    <h3 class="font-bold text-gray-800">其他方式</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 常见问题 -->
+    <section id="faq" class="py-16 bg-light">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-gray-800 mb-4">常见问题</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">解答您在充值过程中可能遇到的问题</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-6">
+                    <!-- FAQ项目1 -->
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                            <span>充值后多久可以到账？</span>
+                            <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content px-6 pb-4 hidden">
+                            <p class="text-gray-600">一般情况下，支付完成后会立即到账。如遇系统繁忙或网络问题，可能会有5-10分钟的延迟。如果超过30分钟仍未到账，请联系我们的客服进行处理。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ项目2 -->
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                            <span>充值错误可以退款吗？</span>
+                            <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content px-6 pb-4 hidden">
+                            <p class="text-gray-600">如果因您提供的账号信息错误导致充值到他人账户，我们无法进行退款。请在提交订单前仔细核对账号信息。如因我们的系统问题导致充值失败，我们将全额退款。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ项目3 -->
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                            <span>会员时长是如何计算的？</span>
+                            <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content px-6 pb-4 hidden">
+                            <p class="text-gray-600">会员时长从充值成功后开始计算，在您当前会员有效期的基础上叠加。例如：您当前会员还有10天到期，充值一个月会员后，有效期将延长30天，总有效期变为40天。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ项目4 -->
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                            <span>如何查询我的充值记录？</span>
+                            <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content px-6 pb-4 hidden">
+                            <p class="text-gray-600">登录我们的网站后，在"我的账户-充值记录"中可以查询到您所有的充值记录，包括充值时间、金额、平台、订单状态等信息。我们也会将充值成功的通知发送到您的注册手机或邮箱。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ项目5 -->
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+                            <span>可以为他人账号充值吗？</span>
+                            <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content px-6 pb-4 hidden">
+                            <p class="text-gray-600">可以。在充值时，您只需填写需要充值的目标账号信息即可为他人充值。请确保您已获得对方授权，避免不必要的纠纷。为他人充值的记录也会显示在您的账户充值记录中。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center">
+                    <p class="text-gray-600 mb-4">还有其他问题？</p>
+                    <a href="#contact" class="inline-flex items-center px-6 py-3 bg-primary text-white rounded-full font-medium hover:bg-accent transition-colors">
+                        联系客服
+                        <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 用户评价 -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-gray-800 mb-4">用户的真实评价</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">看看其他用户对我们服务的评价</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-light rounded-xl p-8 card-hover">
+                    <div class="flex items-center mb-6">
+                        <img src="https://picsum.photos/id/1012/100/100" alt="用户头像" class="w-14 h-14 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800">张先生</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"充值速度非常快，支付完成后几秒钟就到账了，比官方充值还有优惠，非常满意！"</p>
+                    <p class="text-gray-500 text-sm">充值了 高级会员 · 3天前</p>
+                </div>
+                
+                <div class="bg-light rounded-xl p-8 card-hover">
+                    <div class="flex items-center mb-6">
+                        <img src="https://picsum.photos/id/1027/100/100" alt="用户头像" class="w-14 h-14 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800">李女士</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-half-o"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"第一次使用代充值服务，客服很耐心地解答了我的问题，操作也很简单，到账速度快，值得推荐。"</p>
+                    <p class="text-gray-500 text-sm">充值了 尊享会员 · 1周前</p>
+                </div>
+                
+                <div class="bg-light rounded-xl p-8 card-hover">
+                    <div class="flex items-center mb-6">
+                        <img src="https://picsum.photos/id/1025/100/100" alt="用户头像" class="w-14 h-14 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800">王先生</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"价格比官方便宜不少，已经连续充值半年了，从未出现过问题，到账稳定，会继续支持。"</p>
+                    <p class="text-gray-500 text-sm">充值了 基础会员 · 2周前</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="py-16 bg-gradient-blue">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <div class="p-8 md:p-12">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">联系我们</h2>
+                        <p class="text-gray-600 mb-8">如果您有任何问题或需求，请随时联系我们，我们会尽快回复您</p>
+                        
+                        <form class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-gray-700 font-medium mb-2">您的姓名</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors" placeholder="请输入您的姓名">
+                            </div>
+                            
+                            <div>
+                                <label for="phone" class="block text-gray-700 font-medium mb-2">联系电话</label>
+                                <input type="tel" id="phone" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors" placeholder="请输入您的联系电话">
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-gray-700 font-medium mb-2">您的问题</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors" placeholder="请描述您的问题或需求"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full py-3 bg-primary text-white rounded-lg font-medium hover:bg-accent transition-colors submit-form-btn">
+                                提交信息
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="bg-primary p-8 md:p-12 text-white">
+                        <h3 class="text-2xl font-bold mb-8">联系方式</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">客服电话</h4>
+                                    <p>此功能正在维护中，给您带来不便敬请谅解。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">电子邮箱</h4>
+                                    <p>此功能正在维护中，给您带来不便敬请谅解。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">工作时间</h4>
+                                    <p>7×24小时全天候服务</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fa fa-weixin"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">微信客服</h4>
+                                    <p>扫描二维码添加客服</p>
+                                    <div class="mt-3 bg-white p-2 inline-block rounded">
+                                        <div class="w-32 h-32 bg-gray-200 flex items-center justify-center text-gray-500">
+                                            <i class="fa fa-qrcode text-4xl"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部 -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <i class="fa fa-credit-card text-primary text-2xl"></i>
+                        <h3 class="text-xl font-bold">会员充值中心</h3>
+                    </div>
+                    <p class="text-gray-400 mb-6">专业的会员代充值服务平台，安全快捷，价格优惠，让您享受更多会员特权。</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fa fa-weixin"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">快速链接</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">首页</a></li>
+                        <li><a href="#plans" class="text-gray-400 hover:text-primary transition-colors">会员套餐</a></li>
+                        <li><a href="#process" class="text-gray-400 hover:text-primary transition-colors">充值流程</a></li>
+                        <li><a href="#faq" class="text-gray-400 hover:text-primary transition-colors">常见问题</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-primary transition-colors">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">支持平台</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">视频平台A</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">音乐平台B</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">阅读平台C</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">游戏平台D</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">电商平台E</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">帮助中心</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">账号注册</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">充值教程</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">退款政策</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">用户协议</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">隐私政策</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-500 text-sm">
+                <p>© 2023 会员充值中心 版权所有 | 营业执照号：XXXXXXXXXXXXXX</p>
+                <p class="mt-2">免责声明：本平台仅提供代充值服务，与各大会员平台无直接关联</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-accent">
+        <i class="fa fa-chevron-up"></i>
+    </button>
+
+    <!-- 维护提示弹窗 -->
+    <div id="maintenance-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <div class="absolute inset-0 bg-black/50 modal-backdrop"></div>
+        <div class="relative bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl transform transition-all">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fa fa-wrench text-yellow-500 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">系统维护通知</h3>
+                <p class="text-gray-600 mb-6">此功能正在维护中,给您带来不便敬请谅解。</p>
+                <p class="text-gray-600 mb-8">如需购买,请通过以下链接:</p>
+                <a href="https://m.tb.cn/h.SSaHeBh?tk=Npdzf0wyrMe" target="_blank" class="inline-flex items-center px-6 py-3 bg-accent text-white rounded-full font-medium hover:bg-dark transition-colors mb-4">
+                    <i class="fa fa-shopping-bag mr-2"></i>
+                    咸鱼购买链接
+                </a>
+                <button id="close-modal" class="w-full py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-100 transition-colors">
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 提交成功弹窗 -->
+    <div id="success-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <div class="absolute inset-0 bg-black/50 modal-backdrop"></div>
+        <div class="relative bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl transform transition-all">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fa fa-check text-green-500 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">提交成功</h3>
+                <p class="text-gray-600 mb-8">您的信息已成功提交，我们会尽快与您联系。</p>
+                <button id="close-success-modal" class="w-full py-3 bg-primary text-white rounded-lg font-medium hover:bg-accent transition-colors">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单
+        const menuButton = document.querySelector('button.md\\:hidden');
+        const closeButton = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeButton.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+            document.body.style.overflow = '';
+        });
+        
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // FAQ折叠功能
+        const faqToggles = document.querySelectorAll('.faq-toggle');
+        
+        faqToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                const icon = toggle.querySelector('i');
+                
+                // 关闭其他所有FAQ
+                document.querySelectorAll('.faq-content').forEach(item => {
+                    if (item !== content && !item.classList.contains('hidden')) {
+                        item.classList.add('hidden');
+                        item.previousElementSibling.querySelector('i').classList.remove('rotate-180');
+                    }
+                });
+                
+                // 切换当前FAQ
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+            
+            // 导航栏滚动效果
+            const header = document.querySelector('header');
+            if (window.pageYOffset > 100) {
+                header.classList.add('py-2', 'shadow');
+                header.classList.remove('py-3');
+            } else {
+                header.classList.add('py-3');
+                header.classList.remove('py-2', 'shadow');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 维护提示弹窗功能
+        const maintenanceModal = document.getElementById('maintenance-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const rechargeButtons = document.querySelectorAll('.recharge-btn, .login-btn');
+        
+        // 打开弹窗
+        function openModal() {
+            maintenanceModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // 添加动画效果
+            setTimeout(() => {
+                maintenanceModal.querySelector('div[class*="transform"]').classList.add('scale-100');
+                maintenanceModal.querySelector('div[class*="transform"]').classList.remove('scale-95');
+            }, 10);
+        }
+        
+        // 关闭弹窗
+        function closeModal() {
+            maintenanceModal.querySelector('div[class*="transform"]').classList.remove('scale-100');
+            maintenanceModal.querySelector('div[class*="transform"]').classList.add('scale-95');
+            
+            setTimeout(() => {
+                maintenanceModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+        
+        // 为所有充值按钮添加点击事件
+        rechargeButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault(); // 阻止默认链接行为
+                openModal();
+            });
+        });
+        
+        // 关闭弹窗按钮事件
+        closeModalBtn.addEventListener('click', closeModal);
+        
+        // 点击背景关闭弹窗
+        maintenanceModal.querySelector('.modal-backdrop').addEventListener('click', closeModal);
+        
+        // 提交成功弹窗功能
+        const successModal = document.getElementById('success-modal');
+        const closeSuccessModalBtn = document.getElementById('close-success-modal');
+        const submitFormBtn = document.querySelector('.submit-form-btn');
+        
+        // 打开提交成功弹窗
+        function openSuccessModal() {
+            successModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // 添加动画效果
+            setTimeout(() => {
+                successModal.querySelector('div[class*="transform"]').classList.add('scale-100');
+                successModal.querySelector('div[class*="transform"]').classList.remove('scale-95');
+            }, 10);
+        }
+        
+        // 关闭提交成功弹窗
+        function closeSuccessModal() {
+            successModal.querySelector('div[class*="transform"]').classList.remove('scale-100');
+            successModal.querySelector('div[class*="transform"]').classList.add('scale-95');
+            
+            setTimeout(() => {
+                successModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+        
+        // 提交表单事件
+        submitFormBtn.closest('form').addEventListener('submit', function(e) {
+            e.preventDefault(); // 阻止表单默认提交
+            
+            // 清空表单
+            this.reset();
+            
+            // 显示提交成功弹窗
+            openSuccessModal();
+        });
+        
+        // 关闭提交成功弹窗按钮事件
+        closeSuccessModalBtn.addEventListener('click', closeSuccessModal);
+        
+        // 点击背景关闭提交成功弹窗
+        successModal.querySelector('.modal-backdrop').addEventListener('click', closeSuccessModal);
+        
+        // 页面加载动画
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+    </script>
+
+
+</body></html>
